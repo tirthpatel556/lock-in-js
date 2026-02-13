@@ -1,0 +1,24 @@
+1. what i understood
+variables,loops,condition,function.
+
+let name="Tirth";
+let age=19;
+let isStudent=true;
+console.log(name,age,isStudent);
+console.log(typeof(name,age,isStudent)); 
+//by using comma js reads it as comma operator and return the last value so it ignores name and age hence the answer is boolean cause last one is isStudent
+console.log(typeof(5+"5")); // + in js cosidered as string other -*/ are number.
+
+2.what confused me:
+even and odd question
+
+let number=4;
+if (number%2===0){   //=== is compulsory cause its strictly comparative    console.log("even"); //little confusion but easy
+}
+else{
+    console.log("odd");
+}
+
+3.what felt easy: mostly everything because everything was same as c.
+
+4.what felt hard: === (not that hard though.
