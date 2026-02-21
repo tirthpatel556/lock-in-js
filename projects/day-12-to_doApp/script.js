@@ -1,6 +1,7 @@
 let taskInput=document.getElementById("taskInput");
 let addButton=document.getElementById("add");
 let taskList=document.getElementById("taskList");
+let taskCount=document.getElementById("task-count");
 
 // render task
 
@@ -8,6 +9,13 @@ let tasks=JSON.parse(localStorage.getItem("tasks")) || [];
 
 function renderTask() {
     taskList.innerHTML="";
+    if (tasks.length===0) {
+        let li=document.createElement("li");
+        li.innerText="No task remaining!"
+        taskList.appendChild(li);
+        taskCount.innerText="Task remaining: 0";
+        return;
+    }
     tasks.forEach(function(task,index){
         let li=document.createElement("li");
         li.innerText=task;
@@ -19,10 +27,16 @@ function renderTask() {
                 localStorage.setItem("tasks",JSON.stringify(tasks));
                 renderTask();
             }
-        )
+        );
         li.appendChild(deletebtn);
-        taskList.appendChild(li);        
+        taskList.appendChild(li);
+        li.style.display="flex";
+        li.style.justifyContent="flex-start";
+        li.style.marginBottom="10px";
+        deletebtn.style.marginLeft="10px";
+   
     });
+    taskCount.innerText="Task remaining:"+tasks.length;
 }
 renderTask();
 
