@@ -1,3 +1,5 @@
+// product-data
+
 let products=[
     { id:1, name:"Laptop", price:50000, category:"electronics", stock:3},
     { id:2, name:"Phone", price:20000, category:"electronics", stock:0},
@@ -5,7 +7,7 @@ let products=[
     { id:4, name:"Watch", price:1500, category:"fashion", stock:10},
 ];
 
-// product-name
+// functions
 
 function getProductNames(products){
     return products.map(product=>{
@@ -15,8 +17,6 @@ function getProductNames(products){
 let names=getProductNames(products);
 console.log(names);
 
-// product-availabilty
-
 function getAvailableProducts(products){
     return products.filter(product=>{
         return product.stock>0;
@@ -24,8 +24,6 @@ function getAvailableProducts(products){
 };
 let inStock=getAvailableProducts(products);
 console.log(inStock);
-
-// product-find
 
 function findProductById(products,id) {
     return products.find(product=>{
@@ -35,8 +33,6 @@ function findProductById(products,id) {
 let findProduct=findProductById(products,3);
 console.log(findProduct);
 
-// total inventory value
-
 function getInventoryValue(products) {
     return products.reduce((total,product)=>{
         return total+(product.price * product.stock);
@@ -45,8 +41,16 @@ function getInventoryValue(products) {
 let totalValue=getInventoryValue(products);
 console.log(totalValue);
 
-// async data loading
+function getExpensiveProducts(products,minPrice) {
+    return products.filter(product=>
+     product.price>minPrice).map(product=>
+         product.name);
+};
 
+let expensive=getExpensiveProducts(products,10000);
+console.log("expensive products:",expensive);
+
+// async simulation
 function fetchProducts() {
     return new Promise((resolve) => {
         setTimeout(() => {
@@ -60,10 +64,17 @@ function fetchProducts() {
     });
 };
 async function runStore() {
-    let product=await fetchProducts();
-    console.log("product Names:",product.names);
-    console.log("Available products:",product.inStock);
-    console.log("Found Product:",product.findProduct);
-    console.log("Inventory Value:",product.totalValue);
+    try {
+        let product=await fetchProducts();
+        console.log("product Names:",product.names);
+        console.log("Available products:",product.inStock);
+        console.log("Found Product:",product.findProduct);
+        console.log("Inventory Value:",product.totalValue);
+        
+    } catch (error) {
+        console.log("Something went wrong!",error);
+    }
 }
+
+// main-program
 runStore();
