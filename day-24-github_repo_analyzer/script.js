@@ -31,11 +31,11 @@ async function analyzeRepos(username) {
         console.log("total stars:",totalStars);
         
         // languages
-        let languages=repos.map(repo=>repo.languese).filter(lang=>lang!==null);
-        let uniqueLanguages=[...new set(languages)];
-        console.log("languages used:",uniqueLanguages);
+        let languages=repos.map(repo=>repo.language).filter(lang=>lang!=="null");
+        let uniqueLanguages=[new Set(languages)];
+        console.log(["Languages used:",uniqueLanguages]);
     } catch (error) {
         console.log("Error",error);
     }
 };
-analyzeRepos("tolvarlds");
+analyzeRepos("torvalds");
