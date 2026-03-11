@@ -22,27 +22,39 @@ usernameInput.addEventListener("keydown",
 
 async function getProfile(username) {
     profileDiv.innerHTML="<p>Loading Profile...</p>";
-    let response= await fetch(`https://api.github.com/users/${username}`);
-    let data = await response.json();
-    if (!data.login) {
-        profileDiv.innerHTML="<h3>User Not Found!!!</h3>";
-        return;
-    }
-    displayProfile(data);
+    try {
+        let response= await fetch(`https://api.github.com/users/${username}`);
+        let data = await response.json();
+        if (!data.login) {
+            profileDiv.innerHTML="<h3>User Not Found!!!</h3>";
+            return;
+        }
+        let repos= await getRepos(username);
+        let repoList= repos.slice(0,5).map(repo=>`
+            <li>
+            <a href="${repo.html_url}" target="_blank"> ${repo.name}
+            </a>
+            </li>`)
+            .join("");
+            displayProfile(data,repoList);
+        } catch (error) {
+            profileDiv.innerHTML="<p>Error loading profile!</p>"
+            console.log("Error!",error)
+        }
 };
 
 //profile-data
 
-async function displayProfile(user){
-    let repos= await getRepos(user.login);
-    let repoList= repos.slice(0,5).map(repo=>`<li>${repo.name}</li>`).join("");
+async function displayProfile(user,reposHTML){
     profileDiv.innerHTML=`
-    <img src="${user.avatar_url}" width="100">
-    <h3>${user.name}</h3>
+    <div class="profile-card">
+    <img src="${user.avatar_url}" width="120">
+    <h2>${user.name || user.login}</h2>
     <p>Followers:${user.followers}</p>
     <p>Public repos:${user.public_repos}</P>
     <h3>Repositories</h3>
-    <ul>${repoList}</ul>
+    <ul>${reposHTML}</ul>
+    </div>
     `;
 };
 
