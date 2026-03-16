@@ -17,12 +17,12 @@ document.addEventListener("keydown",
 
 async function getQuote() {
 
+    quoteText.innerText="Genetaring the Quote..."
+    authorText.innerText="";
     quoteBox.style.opacity="0";
 
     setTimeout(async function getQuote() {
 
-        quoteText.innerText="Genetaring the Quote..."
-        authorText.innerText="";
         let response= await fetch("https://dummyjson.com/quotes/random");
         let data= await response.json();
         displayQuote(data);
