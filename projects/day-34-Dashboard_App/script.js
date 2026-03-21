@@ -84,8 +84,6 @@ function displayWeather(data) {
     emoji = "❄️";
   }
   weatherText.innerHTML = `
-    <h1>${realCity}</h1>
-    <h1>${emoji}</h1>
-    <p>Temperature:${temperature}</p>
+    <p>${realCity}${emoji}${temperature}°C</p>
     `;
 }
