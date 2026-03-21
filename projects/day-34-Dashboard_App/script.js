@@ -23,8 +23,8 @@ greeting();
 // quote-api fetch
 
 async function generateQuote() {
-  quoteText.innerText = "Loading...";
-  author.innerText = "";
+  // quoteText.innerText = "Loading...";
+  // author.innerText = "";
   let response = await fetch("https://dummyjson.com/quotes/random");
   let data = await response.json();
   displayQuote(data);
@@ -33,10 +33,22 @@ async function generateQuote() {
 // qoute display function
 
 function displayQuote(data) {
-  quoteText.innerText = `"${data.quote}"`;
-  author.innerText = `- ${data.author}`;
+
+  quoteText.classList.remove("show");
+  void quoteText.offsetWidth;
+  quoteText.classList.add("fade");
+  setTimeout(() => {
+    
+    quoteText.innerText = `"${data.quote}"`;
+    author.innerText = `- ${data.author}`;
+    localStorage.setItem("quote",data.quote);
+    localStorage.setItem("author",data.author);
+
+    quoteText.classList.remove("fade");
+    quoteText.classList.add("show");
+
+  }, 500);
 }
-generateQuote();
 
 //quote search button
 
@@ -52,6 +64,7 @@ search.addEventListener("click", function () {
     return;
   }
   weatherText.innerText = "Loading weather data...";
+  localStorage.setItem("city",cityName);
   getWeather(cityName);
 });
 
@@ -61,10 +74,10 @@ async function getWeather(city) {
   let response = await fetch(`https://wttr.in/${city}?format=j1`);
   let data = await response.json();
   console.log(data);
-          if (!data.current_condition) {
-            weatherText.innerText="City not found!";
-            return;
-        }
+  if (!data.current_condition) {
+    weatherText.innerText="City not found!";
+    return;
+  }
   displayWeather(data);
 }
 
@@ -74,16 +87,47 @@ function displayWeather(data) {
   let temperature = data.current_condition[0].temp_C;
   let condition = data.current_condition[0].weatherDesc[0].value;
   let realCity = data.nearest_area[0].areaName[0].value;
-  let conditionText = condition.toLowerCase();
-  let emoji = "☀️";
-  if (conditionText.includes("cloud") || condition.includes("Overcast")) {
-    emoji = "☁️";
-  } else if (conditionText.includes("rain")) {
-    emoji = "🌧️";
-  } else if (conditionText.includes("snow")) {
-    emoji = "❄️";
+  let emoji = getWeatherEmoji(condition);
+  weatherText.innerHTML = `${realCity} ${emoji} ${temperature}°C`;
+}
+
+// weather-emoji 
+
+  function getWeatherEmoji(condition) {
+     condition = condition.toLowerCase();
+
+    if (condition.includes("cloud") || condition.includes("Overcast")) 
+      return "☁️";
+
+     if (condition.includes("rain")) 
+      return "🌧️";
+    
+     if (condition.includes("snow")) 
+      return "❄️";
+    
+    if (condition.includes("sun") || condition.includes("clear")) 
+      return "☀️";
+
+    return "🌏";
   }
-  weatherText.innerHTML = `
-    <p>${realCity}${emoji}${temperature}°C</p>
-    `;
+
+// save weather
+
+let savedCity=localStorage.getItem("city");
+if (savedCity) {
+  getWeather(savedCity);
+  inputCity.value=savedCity;
+}
+
+// save quote
+
+let savedQuote=localStorage.getItem("quote");
+let savedAuthor=localStorage.getItem("author");
+
+if (savedQuote && savedAuthor) {
+
+  quoteText.innerText=`"${savedQuote}"`;
+  author.innerText=`- ${savedAuthor}`;
+} else {
+  generateQuote();
 }
