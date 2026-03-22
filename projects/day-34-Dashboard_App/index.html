@@ -7,9 +7,29 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+    
+    <!-- dashboard card -->
+
     <div class="container">
 
+        <!-- toggle button section -->
+
+        <div class="toggle-container">
+            <div class="theme-toggle">
+                <span>🌙</span>
+                <label class="switch">
+                    <input type="checkbox" id="themeToggle">
+                    <span class="slider"></span>
+                </label>
+                <span>☀️</span>
+            </div>
+        </div>
+
+        <!-- greeting text section -->
+
         <h1 id="greetingText"></h1>
+
+        <!-- weather section -->
 
         <div class="weather-search">
             <input type="text" id="inputCity" placeholder="Enter City">
@@ -17,6 +37,8 @@
     </div>
     <div id="weatherText"></div>
     
+    <!-- quote section -->
+
     <div id="quoteBox">
         <p id="quote"></p>
         <h3 id="author"></h3>

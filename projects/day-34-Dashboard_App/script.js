@@ -5,6 +5,7 @@ let newQuote = document.getElementById("newQuote");
 let inputCity = document.getElementById("inputCity");
 let searchButton = document.getElementById("search");
 let weatherText = document.getElementById("weatherText");
+let toggleBtn = document.getElementById("themeToggle");
 
 // greeting section
 
@@ -131,3 +132,25 @@ if (savedQuote && savedAuthor) {
 } else {
   generateQuote();
 }
+
+// save theme
+
+let savedTheme = localStorage.getItem("theme");
+if (savedTheme === "light") {
+  document.body.classList.add("light-mode");
+  toggleBtn.checked = true;
+} 
+  
+// theme toggle
+
+toggleBtn.addEventListener("change",
+  function(){
+    if (toggleBtn.checked) {
+      document.body.classList.add("light-mode");
+      localStorage.setItem("theme","light");
+    } else {
+      document.body.classList.remove("light-mode");
+      localStorage.setItem("theme","dark");
+    }
+  }
+);
