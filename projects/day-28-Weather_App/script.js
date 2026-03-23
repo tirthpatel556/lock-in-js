@@ -43,7 +43,7 @@ async function getWeather(city) {
         }
         displayWeather(data);
     } catch (error) {
-        weatherResult.innerHTML="Failed to tetch weather.";
+        weatherResult.innerHTML="Failed to fetch weather.";
     }
 }
 
