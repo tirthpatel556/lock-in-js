@@ -13,6 +13,7 @@ searchButton.addEventListener("click",
             return;
         }
         weatherResult.innerText="Loading weather data...";
+        localStorage.setItem("city",cityName);
         getWeather(cityName);
     }
 );
@@ -26,6 +27,7 @@ cityInput.addEventListener("keydown",
                 return;
             }
             weatherResult.innerText="Loading weather data...";
+            localStorage.setItem("city",cityName);
             getWeather(cityName);
         }
     }
@@ -46,6 +48,7 @@ async function getWeather(city) {
         weatherResult.innerHTML="Failed to fetch weather.";
     }
 }
+
 
 // ui
 
@@ -81,4 +84,12 @@ function displayWeather(data) {
     <p>Humidity:${humidity}%</p>
     <p>Feels Like:${feelslike}°C</p>
     `;
+}
+
+// saved city
+
+let savedCity=localStorage.getItem("city");
+if (savedCity) {
+    getWeather(savedCity);
+    handleWeather(savedCity);
 }

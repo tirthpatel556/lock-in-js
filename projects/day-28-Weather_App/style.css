@@ -9,13 +9,25 @@ body{
     text-align: center;
     margin-top: 50px;
     border-radius: 10px;
+    color: white;
+    background-color: rgb(19, 115, 142);
+    min-height: 60vh;
 }
 .weather-card{
-    background-color: white;
+    background-color: rgb(23, 23, 23);
     backdrop-filter: blur(10px);
     /* background-color: rgba(0, 0, 0, 0.578); */
     margin-top: 20px;
     padding: 20px;
     width: 250px;
+    min-height: 20vh;
 
+}
+button{
+    cursor: pointer;
+    margin-left: 5px;
+    height: 26px;
+    width: 60px;
+    border-radius: 9px;
+    border: none;
 }
