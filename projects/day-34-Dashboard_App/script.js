@@ -6,19 +6,35 @@ let inputCity = document.getElementById("inputCity");
 let searchButton = document.getElementById("search");
 let weatherText = document.getElementById("weatherText");
 let toggleBtn = document.getElementById("themeToggle");
+let clock = document.getElementById("clock");
+let usernameInput = document.getElementById("usernameInput");
+let saveName = document.getElementById("saveName");
+
 
 // greeting section
 
 function greeting() {
+  
   let hour = new Date().getHours();
-  if (hour < 12) {
-    greetingText.innerText = "Good Morning Tirth";
-  } else if (hour < 18) {
-    greetingText.innerText = "Good Afternoon Tirth";
+  let name=localStorage.getItem("username");
+  if (hour < 12 && name) {
+    greetingText.innerText = `Good Morning ${name}` ;
+  } else if (hour < 18 && name) {
+    greetingText.innerText = `Good Afternoon ${name}`;
   } else {
-    greetingText.innerText = "Good Evening Tirth";
+    greetingText.innerText = `Good Evening ${name}`;
   }
 }
+
+// username
+
+saveName.addEventListener("click",
+  ()=>{
+    let name = usernameInput.value;
+    localStorage.setItem("username",name);
+    greeting();
+  }
+);
 greeting();
 
 // quote-api fetch
@@ -154,3 +170,26 @@ toggleBtn.addEventListener("change",
     }
   }
 );
+
+// clock
+
+function updateClock() {
+  let now = new Date();
+  let hours = now.getHours();
+  let minutes = now.getMinutes();
+  let seconds = now.getSeconds();
+  if (hours < 10) {
+    hours = "0"+ hours;
+  }
+  if (minutes < 10) {
+    minutes = "0" + minutes;
+  }
+  if (seconds < 10) {
+    seconds = "0" + seconds;
+  }
+  clock.innerText=`${hours}:${minutes}:${seconds}`;
+  // updateClock();
+}
+
+setInterval(updateClock,1000);
+
