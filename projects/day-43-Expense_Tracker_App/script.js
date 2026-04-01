@@ -50,6 +50,7 @@ function renderExpenses() {
         li.appendChild(deleteBtn);
     });
     totalExpense.innerText = total;
+    renderChart();
 }
 
 // save expense
@@ -59,3 +60,33 @@ function saveData() {
 }
 
 renderExpenses();
+
+// chart function
+
+let chart;
+
+function renderChart(){
+    let labels = expenses.map(item =>item.name);
+    let data = expenses.map(item=>item.amount);
+    let ctx = document.getElementById("expenseChart").getContext("2D");
+     if (chart) {
+        chart.destroy();
+     }
+
+     chart = new chart(ctx,{
+        type: "pie",
+        data:{
+            labels: labels,
+            datasets:[{
+                data: data,
+                backgroundColor: [
+                    "#4CAF50",
+                    "#FF6384",
+                    "#36A2EB",
+                    "#FFCE56",
+                    "#8E44AD"
+                ]
+            }]
+        }
+     });
+}
