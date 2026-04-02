@@ -5,6 +5,7 @@ let expenseList = document.getElementById("expenseList");
 let totalExpense = document.getElementById("totalExpense");
 
 let expenses =JSON.parse(localStorage.getItem("expenses")) || [];
+let chart;
 
 // expense save
 
@@ -63,17 +64,16 @@ renderExpenses();
 
 // chart function
 
-let chart;
 
 function renderChart(){
     let labels = expenses.map(item =>item.name);
     let data = expenses.map(item=>item.amount);
-    let ctx = document.getElementById("expenseChart").getContext("2D");
+    let ctx = document.getElementById("expenseChart").getContext("2d");
      if (chart) {
         chart.destroy();
      }
 
-     chart = new chart(ctx,{
+     chart = new Chart(ctx,{
         type: "pie",
         data:{
             labels: labels,
@@ -87,6 +87,15 @@ function renderChart(){
                     "#8E44AD"
                 ]
             }]
+        },
+        options:{
+            plugins:{
+                legend:{
+                    labels:{
+                        color:"#ffffff"
+                    }
+                }
+            }
         }
      });
 }
