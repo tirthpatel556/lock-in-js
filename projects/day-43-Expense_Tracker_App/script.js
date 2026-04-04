@@ -3,6 +3,7 @@ let amountInput = document.getElementById("amountInput");
 let addButton = document.getElementById("add");
 let expenseList = document.getElementById("expenseList");
 let totalExpense = document.getElementById("totalExpense");
+let categoryInput = document.getElementById("categoryInput");
 
 let expenses =JSON.parse(localStorage.getItem("expenses")) || [];
 let chart;
@@ -16,7 +17,8 @@ addButton.addEventListener("click",
         let newExpense = {
 
                 name: expense,
-                amount: Number(amount)
+                amount: Number(amount),
+                category: categoryInput.value
             };
 
         expenses.push(newExpense);
@@ -32,7 +34,7 @@ function renderExpenses() {
     let total = 0;
     expenses.forEach(function (item,index) {
         let li = document.createElement("li");
-        li.innerText = item.name + " -$" + item.amount;
+        li.innerText = item.name + " (" + item.category + ") - $" + item.amount;
         total+= item.amount;
         
         //delete expense 
@@ -64,10 +66,17 @@ renderExpenses();
 
 // chart function
 
-
 function renderChart(){
-    let labels = expenses.map(item =>item.name);
-    let data = expenses.map(item=>item.amount);
+    let categoryTotals = {};
+    expenses.forEach(item =>{
+        if (categoryTotals[item.category]) {
+            categoryTotals[item.category] += item.amount;  
+        } else{
+            categoryTotals[item.category] = item.amount;
+        }
+    });
+    let labels = Object.keys(categoryTotals);
+    let data = Object.values(categoryTotals);
     let ctx = document.getElementById("expenseChart").getContext("2d");
      if (chart) {
         chart.destroy();
@@ -92,7 +101,10 @@ function renderChart(){
             plugins:{
                 legend:{
                     labels:{
-                        color:"#ffffff"
+                        color:"#ffffff",
+                        font:{
+                            size: 14
+                        }
                     }
                 }
             }
