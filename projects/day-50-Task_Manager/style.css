@@ -30,7 +30,7 @@ button{
     width: 25%;
     margin-bottom: 10%;
 }
-button:hover{
+#addTask:hover{
     background: #45a049;
 }
 #filters{
@@ -53,6 +53,11 @@ h1{
 .input-group button{
     padding: 8px 12px;
 }
+
+input:checked + label{
+    background: #4CAF50;
+    color: white;
+}
 #filters label{
     cursor: pointer;
     padding: 5px 10px;
@@ -66,4 +71,34 @@ h1{
     text-align: center;
     color: gray;
     margin-top: 20px;
+}
+
+li{
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    border-radius: 8px;
+    /* align-items: center; */
+}
+
+li button{
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 5px 8px;
+}
+
+li:hover{
+    background: rgba(255, 255, 255, 0.05);
+}
+
+li{
+    transition: 0.3s;
+}
+
+.completed{
+    text-decoration: line-through;
+    opacity: 0.6;
 }
