@@ -50,7 +50,7 @@ async function generateQuote() {
 // qoute display function
 
 function displayQuote(data) {
-
+  
   quoteText.classList.remove("show");
   void quoteText.offsetWidth;
   quoteText.classList.add("fade");
@@ -60,10 +60,10 @@ function displayQuote(data) {
     author.innerText = `- ${data.author}`;
     localStorage.setItem("quote",data.quote);
     localStorage.setItem("author",data.author);
-
+    
     quoteText.classList.remove("fade");
     quoteText.classList.add("show");
-
+    
   }, 500);
 }
 
@@ -110,25 +110,25 @@ function displayWeather(data) {
 
 // weather-emoji 
 
-  function getWeatherEmoji(condition) {
+function getWeatherEmoji(condition) {
      condition = condition.toLowerCase();
 
-    if (condition.includes("cloud") || condition.includes("Overcast")) 
+     if (condition.includes("cloud") || condition.includes("Overcast")) 
       return "☁️";
-
-     if (condition.includes("rain")) 
+    
+    if (condition.includes("rain")) 
       return "🌧️";
     
-     if (condition.includes("snow")) 
+    if (condition.includes("snow")) 
       return "❄️";
     
     if (condition.includes("sun") || condition.includes("clear")) 
       return "☀️";
-
+    
     return "🌏";
   }
 
-// save weather
+  // save weather
 
 let savedCity=localStorage.getItem("city");
 if (savedCity) {
@@ -171,6 +171,8 @@ toggleBtn.addEventListener("change",
   }
 );
 
+
+
 // clock
 
 function updateClock() {
@@ -192,4 +194,3 @@ function updateClock() {
 }
 
 setInterval(updateClock,1000);
-
