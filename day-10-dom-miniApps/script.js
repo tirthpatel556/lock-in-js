@@ -29,11 +29,10 @@ button.addEventListener("click",
 //theme toggle
 
 let themebutton=document.getElementById("themebtn");
-let toggle=document.getElementById("toggle");
 
 themebutton.addEventListener("click",
     ()=>{
-        if (ocument.body.style.backgroundColor==="white") {
+        if (document.body.style.backgroundColor==="white") {
             
             document.body.style.backgroundColor="cyan";
         }else{
@@ -42,4 +41,21 @@ themebutton.addEventListener("click",
     }
 )
 
-// 
+// mini to-do
+let task=document.getElementById("taskInput");
+let addTask=document.getElementById("addTask");
+let list=document.getElementById("list");
+
+addTask.addEventListener("click",
+    ()=>{
+        let taskinput=task.value;
+        if (taskinput==="") {
+            return;
+        }
+        let li=document.createElement("li");
+        li.style.color="blue";
+        li.innerText=taskinput;
+        list.appendChild(li);
+        task.value="";
+    }
+)
